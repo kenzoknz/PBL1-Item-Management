@@ -1,0 +1,15 @@
+S6,Sat D6,Kim loai,chiec,13,05,99,THACO,16708
+T3,Tui xach,Da tong hop,chiec,30,03,2000,OPQ Int,18500
+L1,Den pin,Nhom,cai,05,07,2007,RST Group,9800
+N2,Dien thoai di dong,Nhua,cai,11,10,2019,UVW Corp,32000
+F6,Ban phim,Nhua,chiec,17,05,2006,XYZ Corp,6500
+V9,Quat dien,Nhua,cai,23,08,2011,DEF Group,18700
+S6,May tinh xach tay,Kim loai,chiec,29,11,2018,GHI Ltd,44500
+B3,Tai nghe khong day,Nhua,chiec,02,04,2004,JKL Ent,12500
+K2,Tui deo cheo,Vai,chiec,10,01,2016,LMN Corp,7500
+Q8,Dong ho deo tay,Thep khong gi,chiec,18,12,2009,OPQ Int,28500
+W7,Binh nuoc,Nhua,cai,07,06,2013,RST Group,9800
+E4,Thuoc ke,Nhom,cai,15,03,2001,UVW Corp,3200
+A1,But may,Thep khong gi,chiec,24,02,2012,XYZ Corp,7500
+G5,O cam dien,Nhua,cai,28,09,2002,DEF Group,14500
+X0,Tui xach laptop,Da tong hop,chiec,08,10,2014,GHI Ltd,26500

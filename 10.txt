@@ -1,0 +1,14 @@
+VT0001,Ong dong,VLXD,chiec,12,06,50,Hoa sen,50000
+VT0002,Ong thep,VLXD,chiec,13,07,50,Nagi,50100
+VT0003,Ong sat,VLXD,chiec,14,08,4,Hoa Phat,15000
+VT0004,Ong nhom,VLXD,chiec,15,09,20,Kim Quan,49000
+VT0005,Ong nhua,VLXD,chiec,16,10,30,Duc Thanh,48000
+VT0006,Ong gom,VLXD,chiec,17,11,105,Nam Hung,51000
+VT0007,Ong thuy tinh,VLXD,chiec,18,12,97,Tan Phat,49050
+VT0008,Ong tre,VLXD,chiec,19,01,96,Viet Duc,49800
+VT0009,Ong sat hop,VLXD,chiec,20,02,103,Kim Son,50500
+VT0010,Ong nhom son tinh dien,VLXD,chiec,21,03,104,Tan Binh,51010
+VT0011,Ong tre,VLXD,chiec,22,04,55,Phuong Nam,49020
+VT0012,Ong bong,VLXD,chiec,23,05,60,Tan Dat,49500
+VT0013,Ong sat hop,VLXD,chiec,24,06,70,Hoa Thanh,48500
+VT0014,Ong go,VLXD,chiec,25,07,80,Ngoc Son,50050
