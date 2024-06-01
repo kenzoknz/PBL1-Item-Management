@@ -32,7 +32,6 @@ void insertBot(Vattu *vattu, Infor infor);
 void insert(Vattu *vattu, Infor infor, int viTri);
 void sapXepTangDan(Vattu *vattu);
 void sapXepGiamDan(Vattu *vattu);
-void sapXepPlus(Vattu *vattu, Infor infor);
 void thanhTien(Vattu vattu);
 double thanhTien1(Infor infor);
 int checkDate(int ngay, int thang);
@@ -59,7 +58,7 @@ int main(){
 	
 	MENU:	do{
 		writeFile(header,filename);
-		fflush(stdin);
+		fflush(stdin); //Xoa bo nho dem, de tranh bi xung dot input truoc do
 		system("cls");
 		printf("\t+");
 		for(int i = 0; i < 31; i++)
@@ -82,53 +81,14 @@ int main(){
 		printf("\n\t7. In bang thong ke vat tu.");
 		printf("\n\t8. Truy cap mot file khac.");
 		printf("\n\t0. Ket thuc chuong trinh.");
-		printf("\nChuong trinh dang tuong tac file: %s",filename);
+		if (f!=NULL ) printf("\nChuong trinh dang truy cap file: %s",filename);
+		else printf("\nChuong trinh khong truy cap file nao.");
 		printf("\nNhap lua chon: ");
         choice = getche();
 		switch (choice) {
 			case '1': 
 			readfromKeyboard(&header);
 			goto MENU;
-			/*
-				printf("\nVui long chon nhap du lieu tu ban phim hoac tu file.");
-				printf("\n\t1. Nhap tu ban phim");
-				printf("\n\t2. Nhap tu file");
-				do{
-				printf("\nNhap lua chon: ");
-				scanf("%d",&choice1);
-				switch (choice1){
-					case 1: 
-					printf("Doc thong tin:");
-					readfromKeyboard(&header);
-					goto MENU;
-			
-				case 2:
-				do {
-  	
-    				printf("\nMoi nhap ten file du lieu: ");
-   				    fflush(stdin); // Xoa ki tu rac
-    				gets(fn);
-   					
-   					f = fopen(fn, "r");
-    				if (f == NULL) {
-    				false_count++;
-     				 printf("File khong ton tai! Vui long nhap lai ten file\n");
-   					 }
-   					 if (false_count==3) {
-    					printf("Ban da nhap sai 3 lan, chuong trinh se quay ve menu.");
-    					getch();
-    					goto MENU;
-					}
-  				} while (f == NULL);
-					printf("Truy cap file %s thanh cong.",fn);
-					readfromFile(&header,fn);
-					getchar();
-					goto MENU;
-				default: printf("\nLua chon khong hop le, vui long nhap lai.");
-				}
-				
-				}while (1);
-				*/
 			case '2': 
 			output(header);
 			break;
@@ -143,7 +103,7 @@ int main(){
 				system("cls");
 				printf("\nMoi ban chon cach tim kiem:");
 				printf("\n\t1. Tim theo ma vat tu");
-				printf("\n\t2. Tim theo so luong");
+				printf("\n\t2. Tim theo so luong lon hon yeu cau (>=SL)");
 				printf("\n\t3. Tim vat tu co so luong lon nhat.");
 				printf("\nNhap lua chon: ");
 				do{
@@ -167,13 +127,13 @@ int main(){
 			 			getch();
 			 			goto Continue;
 			 		default:false_count++;
-					if (false_count<3) printf("\nLua chon khong hop le, bam phim bat ki de nhap lai!\n");
+					if (false_count<3) printf("\nLua chon khong hop le, vui long nhap lai: ");
 					if (false_count == 3) {
 						printf("\nBan da nhap sai 3 lan, chuong trinh se ve menu.\n");
 						getch();
 						goto MENU;
 						}
-					getch();
+					
 			 	}
 			 			
 			 	}while (1);
@@ -249,7 +209,6 @@ int main(){
 					printf("\nBan co muon xoa tat ca vat tu khong?\nNhan Y de tiep tuc, nhan phim bat ki de huy bo.\n");
 					char tt = getch();
 					if (tt == 'y' || tt == 'Y'){
-					
 					destroy(&header); 
 					printf("Da xoa tat ca vat tu, bam phim bat ki de quay ve menu.");
 					getch();
@@ -277,6 +236,7 @@ int main(){
 				}
 				output(header);
 				editInfor(&header);
+				writeFile(header,filename);
 				printf("\nBan co muon tiep tuc chinh sua? \nNhap phim bat ki de tiep tuc. Nhap N de huy.\n");
     			char tt = getche();
    				 if (tt=='N'||tt=='n') break;
@@ -294,6 +254,7 @@ int main(){
         		f = fopen(fn,"r");
         		if (f==NULL) {
 				 printf("\nKhong the mo file %s",fn);
+				 f = fopen(filename,"r");
 				 getchar();
 				}
         		else {
@@ -319,10 +280,10 @@ int main(){
 }
 
 Vattu createNode(Infor infor){
-    Vattu newNode= malloc(sizeof(struct Node));
-    newNode->infor= infor;
-    newNode->next= NULL;
-    newNode->prev= NULL;
+    Vattu newNode  = malloc(sizeof(struct Node));
+    newNode->infor = infor;
+    newNode->next = NULL;
+    newNode->prev = NULL;
     return newNode;
 }
 int count(Vattu vattu){
@@ -403,13 +364,13 @@ void searchSL(Vattu vattu, int soLuong){
     Vattu temp = NULL;
     while (vattu!=NULL){
     	
-        if (vattu->infor.soLuong== soLuong) {
+        if (vattu->infor.soLuong >= soLuong) {
             dk=1;
             insertFirst(&temp,vattu->infor);
         }
         vattu= vattu->next;
         }
-    if (dk==0) printf("\nKhong co vat tu can tim \n");
+    if (dk==0) printf("\nKhong co vat tu can tim co so luong >=%d \n", soLuong);
     else output(temp);
     }
 //Ham tim kiem vat tu co so luong lon nhat
@@ -531,36 +492,7 @@ void sapXepGiamDan(Vattu *vattu){
     printf("Da sap xep theo so luong giam dan.");
     getch();
 }
-//Insert newNode without changing the order (Progressing)
-void sapXepPlus(Vattu *vattu, Infor infor){
-    Vattu newNode= createNode(infor);
-    Vattu tail= *vattu; Vattu head= *vattu;
-    while (tail->next!=NULL){
-        tail=tail->next;
-    }
-    if (tail->infor.soLuong > head->infor.soLuong){
-        for (Vattu i=*vattu; i->next!=NULL; i=i->next){
-            if (i->infor.soLuong < newNode->infor.soLuong&& i->next->infor.soLuong > newNode->infor.soLuong){
-                newNode->next= i->next;
-                i->next= newNode;
-                newNode->prev= i;
-                i->next->prev= newNode;
-                return;
-            }
-            i=i->next;}
-    }
-    if (tail->infor.soLuong<head->infor.soLuong){
-        for (Vattu j=*vattu; j->next!=NULL; j=j->next ){
-            if (j->infor.soLuong > newNode->infor.soLuong&& j->next->infor.soLuong < newNode->infor.soLuong){
-                newNode->next= j->next;
-                j->next= newNode;
-                newNode->prev= j;
-                j->next->prev= newNode;
-                return;
-            }
-            j=j->next;}    
-    }
-    }
+
 //Ham tinh thanh tien:
 double thanhTien1(Infor infor){
     if (infor.soLuong>200){
@@ -758,7 +690,7 @@ void readfromKeyboard(Vattu *vattu) {
             goto MENU2;
     }
     printf("\nNhap thanh cong. Bam phim bat ki de quay lai menu.");
-    free(temp);
+   
     getch();
 }
 
@@ -836,11 +768,9 @@ void readfromFile(Vattu *vattu, char *c1) {
 }
 void editInfor(Vattu *vattu) {
   char find[100];
-  int found = 0, toggle_stop = 1, dk = 4;
+  int found = 0, toggle_stop = 1, dk = 4, SL;
   int ngay, thang;
  if (*vattu == NULL) return;
- //printf("Nhan Enter de bat dau chinh sua...");
-//	getchar();
   
   printf("\nNhap ma cua vat tu can sua: ");
 
@@ -866,7 +796,7 @@ void editInfor(Vattu *vattu) {
 
       printf("\nMoi ban chon 1 trong cac lua chon de chinh sua:\n ");
       printf("\n1. Ten vat tu\n2. Loai vat tu\n3. Don vi tinh\n4. Ngay thang\n5. NSX\n6. So luong\n7. Don gia");
-	  char choice;
+	  char choice, choice6;
 	  do {
 	  	printf("\nNhap lua chon: ");
 	  	scanf("%d",&choice);
@@ -910,12 +840,29 @@ void editInfor(Vattu *vattu) {
       printf("NSX moi: ");
       gets(temp->infor.NSX); goto cont;
     case 6: 
-      printf("So luong moi: ");
-      scanf("%d", &temp->infor.soLuong);
+      printf("\nBan muon thay doi so luong nhu the nao?");
+	  printf("\n1. Them/Giam so luong vao vat tu.");
+	  printf("\n2. Nhap so luong moi.");
+	  printf("\nNhap lua chon: ");
+	  	scanf("%d",&choice6);
+	  switch (choice6){
+	  	case 1:
+	  		printf("Nhap so luong muon them/giam (Neu giam thi nhap dau tru '-': )");
+	  		scanf("%d",&SL);
+	  		temp->infor.soLuong += SL;
+	  		break;
+	  	case 2:
+    		  printf("So luong moi: ");
+     	 	  scanf("%d", &temp->infor.soLuong);
+  }
+       thanhTien1(temp->infor);
       goto cont;
+  
 	case 7:
       printf("Don gia moi: ");
-      scanf("%lld", &temp->infor.donGia);goto cont;
+      scanf("%lld", &temp->infor.donGia);
+       thanhTien1(temp->infor);
+	  goto cont;
      case 0: goto cont;
     default: printf("Nhap lai."); 
       }
@@ -925,7 +872,7 @@ void editInfor(Vattu *vattu) {
     }
     temp = temp->next;
   }
-	  
+	
  cont:
   if (!found) 
     printf("Khong tim thay vat tu co ma %s\n", find);
