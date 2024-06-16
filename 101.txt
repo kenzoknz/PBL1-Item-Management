@@ -1,0 +1,4 @@
+H58,Ban phim,Nhua,cai,15,12,118,OPQ Ltd,21210
+E28,May giat,Kim loai,cai,29,02,101,GHI Enterprises,25541
+Y38,Dong ho,Kim loai,cai,29,05,126,DEF Group,26909
+U22,Lo vi song,Nhom,cai,15,08,107,OPQ Ltd,44943
